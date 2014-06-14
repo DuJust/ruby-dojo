@@ -3,9 +3,11 @@ require 'spec_helper'
 
 describe ChangeValueToReference::Order do
 
-  let(:customer) { ChangeValueToReference::Customer.new('customer') }
-  subject { ChangeValueToReference::Order.new('customer') }
+  context 'order with customer name' do
+    let(:customer) { ChangeValueToReference::Customer.new('customer') }
+    subject { ChangeValueToReference::Order.new('customer').customer_name }
 
-  its(:customer_name) { should eq(customer.name) }
+    it { should eq(customer.name) }
+  end
 
 end
