@@ -9,7 +9,7 @@ describe LazyClass::Employee do
 
       before do
         allow(LazyClass::EmployeeRepository).to receive(:find_email_by_id).with(1).and_return(nil)
-        expect(LazyClass::EmployeeRepository).to receive(:find_email_by_id).with(1).exactly(2).times
+        expect(LazyClass::EmployeeRepository).to receive(:find_email_by_id).with(1).exactly(1).times
       end
 
       subject {

@@ -10,7 +10,8 @@ module LazyClass
     end
 
     def email
-      EmployeeRepository.find_email_by_id(id)
+      @email = EmployeeRepository.find_email_by_id(id) unless instance_variable_defined?(:@email)
+      @email
     end
 
   end
