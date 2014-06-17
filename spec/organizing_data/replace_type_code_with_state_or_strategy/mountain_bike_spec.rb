@@ -5,33 +5,36 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
 
   describe '#off_road_ability' do
 
-    let(:tire_width) { 2 }
-    let(:front_fork_travel) { 0 }
-    let(:rear_fork_travel) { 0 }
-
-    subject {
-      ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(type_code: type_code,
-                                                        tire_width: tire_width,
-                                                        front_fork_travel: front_fork_travel,
-                                                        rear_fork_travel: rear_fork_travel
-      ).off_road_ability
-    }
-
     context 'rigid' do
-      let(:type_code) { :rigid }
+      subject {
+        ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
+          ReplaceTypeCodeWithStateOrStrategy::RigidMountainBike.new(
+            tire_width: 2
+          )).off_road_ability
+      }
       it { should eq(6) }
     end
 
     context 'front suspension' do
-      let(:type_code) { :front_suspension }
-      let(:front_fork_travel) { 3 }
+      subject {
+        ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
+          ReplaceTypeCodeWithStateOrStrategy::FrontSuspensionMountainBike.new(
+            tire_width: 2,
+            front_fork_travel: 3,
+          )).off_road_ability
+      }
       it { should eq(15) }
     end
 
     context 'full suspension' do
-      let(:type_code) { :full_suspension }
-      let(:front_fork_travel) { 3 }
-      let(:rear_fork_travel) { 4 }
+      subject {
+        ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
+          ReplaceTypeCodeWithStateOrStrategy::FullSuspensionMountainBike.new(
+            tire_width: 2,
+            front_fork_travel: 3,
+            rear_fork_travel: 4,
+          )).off_road_ability
+      }
       it { should eq(27) }
     end
 
@@ -41,32 +44,40 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
 
     let(:commission) { 0.5 }
     let(:base_price) { 200 }
-    let(:front_suspension_price) { 0 }
-    let(:rear_suspension_price) { 0 }
-    subject {
-      ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(type_code: type_code,
-                                                        commission: commission,
-                                                        base_price: base_price,
-                                                        front_suspension_price: front_suspension_price,
-                                                        rear_suspension_price: rear_suspension_price
-      ).price
-    }
 
     context 'rigid' do
-      let(:type_code) { :rigid }
+      subject {
+        ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
+          ReplaceTypeCodeWithStateOrStrategy::RigidMountainBike.new(
+            commission: commission,
+            base_price: base_price
+          )).price
+      }
       it { should eq(300) }
     end
 
     context 'front suspension' do
-      let(:type_code) { :front_suspension }
-      let(:front_suspension_price) { 200 }
+      subject {
+        ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
+          ReplaceTypeCodeWithStateOrStrategy::FrontSuspensionMountainBike.new(
+            commission: commission,
+            base_price: base_price,
+            front_suspension_price: 200,
+          )).price
+      }
       it { should eq(500) }
     end
 
     context 'rear suspension' do
-      let(:type_code) { :full_suspension }
-      let(:front_suspension_price) { 200 }
-      let(:rear_suspension_price) { 200 }
+      subject {
+        ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
+          ReplaceTypeCodeWithStateOrStrategy::FullSuspensionMountainBike.new(
+            commission: commission,
+            base_price: base_price,
+            front_suspension_price: 200,
+            rear_suspension_price: 200
+          )).price
+      }
       it { should eq(700) }
     end
   end
