@@ -1,3 +1,4 @@
+require_relative 'rigid_mountain_bike'
 require_relative 'front_suspension_mountain_bike'
 require_relative 'full_suspension_mountain_bike'
 
@@ -22,12 +23,5 @@ module ReplaceTypeCodeWithExtractModule
       extend(mod)
     end
 
-    def off_road_ability
-      @tire_width * TIRE_WIDTH_FACTOR
-    end
-
-    def price
-      (1 + @commission) * @base_price
-    end
   end
 end

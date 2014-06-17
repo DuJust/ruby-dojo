@@ -12,6 +12,7 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
             tire_width: 2
           )).off_road_ability
       }
+
       it { should eq(6) }
     end
 
@@ -23,6 +24,7 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
             front_fork_travel: 3,
           )).off_road_ability
       }
+
       it { should eq(15) }
     end
 
@@ -35,6 +37,7 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
             rear_fork_travel: 4,
           )).off_road_ability
       }
+
       it { should eq(27) }
     end
 
@@ -42,17 +45,15 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
 
   describe '#price' do
 
-    let(:commission) { 0.5 }
-    let(:base_price) { 200 }
-
     context 'rigid' do
       subject {
         ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
           ReplaceTypeCodeWithStateOrStrategy::RigidMountainBike.new(
-            commission: commission,
-            base_price: base_price
+            commission: 0.5,
+            base_price: 200
           )).price
       }
+
       it { should eq(300) }
     end
 
@@ -60,11 +61,12 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
       subject {
         ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
           ReplaceTypeCodeWithStateOrStrategy::FrontSuspensionMountainBike.new(
-            commission: commission,
-            base_price: base_price,
+            commission: 0.5,
+            base_price: 200,
             front_suspension_price: 200,
           )).price
       }
+
       it { should eq(500) }
     end
 
@@ -72,12 +74,13 @@ describe ReplaceTypeCodeWithStateOrStrategy::MountainBike do
       subject {
         ReplaceTypeCodeWithStateOrStrategy::MountainBike.new(
           ReplaceTypeCodeWithStateOrStrategy::FullSuspensionMountainBike.new(
-            commission: commission,
-            base_price: base_price,
+            commission: 0.5,
+            base_price: 200,
             front_suspension_price: 200,
             rear_suspension_price: 200
           )).price
       }
+
       it { should eq(700) }
     end
   end

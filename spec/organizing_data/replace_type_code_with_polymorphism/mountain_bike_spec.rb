@@ -5,14 +5,11 @@ describe ReplaceTypeCodeWithPolymorphism::MountainBike do
 
   describe '#off_road_ability' do
 
-    let(:tire_width) { 2 }
-    let(:front_fork_travel) { 0 }
-    let(:rear_fork_travel) { 0 }
-
     context 'rigid' do
       subject {
-        ReplaceTypeCodeWithPolymorphism::RigidMountainBike.new(type_code: :rigid,
-                                                               tire_width: tire_width,
+        ReplaceTypeCodeWithPolymorphism::RigidMountainBike.new(
+          type_code: :rigid,
+          tire_width: 2,
         ).off_road_ability
       }
 
@@ -21,9 +18,10 @@ describe ReplaceTypeCodeWithPolymorphism::MountainBike do
 
     context 'front suspension' do
       subject {
-        ReplaceTypeCodeWithPolymorphism::FrontSuspensionMountainBike.new(type_code: :front_suspension,
-                                                                         tire_width: tire_width,
-                                                                         front_fork_travel: 3
+        ReplaceTypeCodeWithPolymorphism::FrontSuspensionMountainBike.new(
+          type_code: :front_suspension,
+          tire_width: 2,
+          front_fork_travel: 3
         ).off_road_ability
       }
 
@@ -32,10 +30,11 @@ describe ReplaceTypeCodeWithPolymorphism::MountainBike do
 
     context 'full suspension' do
       subject {
-        ReplaceTypeCodeWithPolymorphism::FullSuspensionMountainBike.new(type_code: :full_suspension,
-                                                                        tire_width: tire_width,
-                                                                        front_fork_travel: 3,
-                                                                        rear_fork_travel: 4
+        ReplaceTypeCodeWithPolymorphism::FullSuspensionMountainBike.new(
+          type_code: :full_suspension,
+          tire_width: 2,
+          front_fork_travel: 3,
+          rear_fork_travel: 4
         ).off_road_ability
       }
 
@@ -46,37 +45,25 @@ describe ReplaceTypeCodeWithPolymorphism::MountainBike do
 
   describe '#price' do
 
-    let(:commission) { 0.5 }
-    let(:base_price) { 200 }
-    let(:front_suspension_price) { 0 }
-    let(:rear_suspension_price) { 0 }
-    subject {
-      ReplaceTypeCodeWithPolymorphism::MountainBike.new(type_code: type_code,
-                                                        commission: commission,
-                                                        base_price: base_price,
-                                                        front_suspension_price: front_suspension_price,
-                                                        rear_suspension_price: rear_suspension_price
-      ).price
-    }
-
     context 'rigid' do
       subject {
-        ReplaceTypeCodeWithPolymorphism::RigidMountainBike.new(type_code: :rigid,
-                                                               commission: commission,
-                                                               base_price: base_price,
+        ReplaceTypeCodeWithPolymorphism::RigidMountainBike.new(
+          type_code: :rigid,
+          commission: 0.5,
+          base_price: 200,
         ).price
       }
 
-      let(:type_code) { :rigid }
       it { should eq(300) }
     end
 
     context 'front suspension' do
       subject {
-        ReplaceTypeCodeWithPolymorphism::FrontSuspensionMountainBike.new(type_code: :front_suspension,
-                                                                         commission: commission,
-                                                                         base_price: base_price,
-                                                                         front_suspension_price: 200,
+        ReplaceTypeCodeWithPolymorphism::FrontSuspensionMountainBike.new(
+          type_code: :front_suspension,
+          commission: 0.5,
+          base_price: 200,
+          front_suspension_price: 200,
         ).price
       }
 
@@ -85,11 +72,12 @@ describe ReplaceTypeCodeWithPolymorphism::MountainBike do
 
     context 'rear suspension' do
       subject {
-        ReplaceTypeCodeWithPolymorphism::FullSuspensionMountainBike.new(type_code: :full_suspension,
-                                                                        commission: commission,
-                                                                        base_price: base_price,
-                                                                        front_suspension_price: 200,
-                                                                        rear_suspension_price: 200
+        ReplaceTypeCodeWithPolymorphism::FullSuspensionMountainBike.new(
+          type_code: :full_suspension,
+          commission: 0.5,
+          base_price: 200,
+          front_suspension_price: 200,
+          rear_suspension_price: 200
         ).price
       }
 
