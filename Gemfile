@@ -4,6 +4,7 @@ gem 'rake'
 
 gem 'rspec'
 gem 'rspec-its'
+gem 'webmock'
 gem 'builder'
 gem 'pry'
 gem 'pry-debugger'
