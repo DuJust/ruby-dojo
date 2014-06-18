@@ -1,4 +1,5 @@
 require 'net/http'
+require_relative 'gateway/post_gateway'
 
 module IntroduceGateway
   class Person
@@ -8,14 +9,11 @@ module IntroduceGateway
     attr_accessor :first_name, :last_name, :ssn
 
     def save
-      url = URI.parse(PERSON_URI)
-      request = Net::HTTP::Post.new(url.path)
-      request.set_form_data(
-        first_name: first_name,
-        last_name: last_name,
-        ssn: ssn
-      )
-      Net::HTTP.new(url.host, url.port).start { |http| http.request(request) }
+      PostGateway.save do |persist|
+        persist.subject = self
+        persist.attributes = [:first_name, :last_name, :ssn]
+        persist.to = PERSON_URI
+      end
     end
   end
 end
