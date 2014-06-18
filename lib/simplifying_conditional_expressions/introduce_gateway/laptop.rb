@@ -10,6 +10,7 @@ module IntroduceGateway
     def save
       url = URI.parse(Laptop_URI)
       request = Net::HTTP::Post.new(url.path)
+      request.basic_auth('user', 'pass')
       request.set_form_data(
         assigned_to: assigned_to,
         serial_number: serial_number

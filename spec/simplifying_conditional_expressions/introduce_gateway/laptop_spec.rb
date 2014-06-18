@@ -8,7 +8,7 @@ describe IntroduceGateway::Laptop do
     let(:serial_number) { 'laptop serial number' }
 
     before do
-      stub_request(:post, IntroduceGateway::Laptop::Laptop_URI).with(
+      stub_request(:post, 'http://user:pass@www.example.com/laptop_issue').with(
         body: {
           assigned_to: assigned_to,
           serial_number: serial_number
