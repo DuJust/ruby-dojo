@@ -1,19 +1,15 @@
-require 'net/http'
-require_relative 'gateway/post_gateway'
+require_relative 'domain_object'
 
 module IntroduceExpressionBuilder
-  class Person
+  class Person < DomainObject
 
     PERSON_URI = 'http://www.example.com/person'
 
     attr_accessor :first_name, :last_name, :ssn
 
     def save
-      PostGateway.save do |persist|
-        persist.subject = self
-        persist.attributes = [:first_name, :last_name, :ssn]
-        persist.to = PERSON_URI
-      end
+      http.post([:first_name, :last_name, :ssn]).to(PERSON_URI)
     end
+
   end
 end
