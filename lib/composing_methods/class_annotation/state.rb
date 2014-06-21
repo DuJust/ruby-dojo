@@ -4,17 +4,16 @@ module ComposingMethods
 
       attr_accessor :state
 
-      def error
-        self.state = :error
+      def self.states(*args)
+        args.each do |arg|
+          define_method(arg) do
+            self.state = arg
+          end
+        end
       end
 
-      def failure
-        self.state = :failure
-      end
+      states :error, :failure, :success
 
-      def success
-        self.state = :success
-      end
     end
   end
 end
