@@ -16,8 +16,8 @@ describe IsolateDynamicReceptor::Recorder do
   context '#play_for' do
     subject {
       recordor = IsolateDynamicReceptor::Recorder.new
-      recordor.start('recorder start')
-      recordor.stop('recorder stop')
+      recordor.record.start('recorder start')
+      recordor.record.stop('recorder stop')
       recordor.play_for(CommandCenter.new)
       recordor.to_s
     }
